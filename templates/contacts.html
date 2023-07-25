@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form method="post" class="form-contacts">
+    <p>Имя: <input type="text" name="username" required></p>
+    <p>Phone: <input type="text" name="phone" required></p>
+    <p>Сообщение:</p>
+    <p><textarea name="message" cols="30" rows="10"></textarea></p>
+    <p><input type="submit" value="Оправить сообщение"></p>
+</form>
+
+{% if username and phone %}
+    <p>Имя пользователя: {{ username }}</p>
+    <p>Phone: {{ phone }}</p>
+    <p>Сообщение: {{ message }}</p>
+{% endif %}
+
+{% endblock %}

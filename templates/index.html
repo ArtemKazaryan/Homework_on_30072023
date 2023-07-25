@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1>Главная страница</h1>
+{{ super() }}
+<hr>
+<h2>Список транзакций</h2>
+<ul>
+    {% for transact in transacts %}
+        {% if transact.income_expenditure.lower() == "расход" %}
+            <li><a href="/transact/{{ transact.income_expenditure }}">{{ transact.income_expenditure.capitalize() }}<p class="income_expenditure"></p></a>
+                <p class="product">{{ transact.date }} - {{ transact.product }}:</p>
+                <div class="price_quantity">Цена за 1 ед.: {{ transact.price }} руб., к-во ед.: {{ transact.quantity }} шт;</div>
+                <div class="total_amount">Общая сумма: {{ transact.price * transact.quantity }} руб.</div>
+                <p><input type="submit" value="Удалить расход(id={{ transact.id }})"></p>
+            </li>
+        {% elif transact.income_expenditure.lower() == "доход" %}
+            <li><a href="/transact/{{ transact.income_expenditure }}">{{ transact.income_expenditure.capitalize() }}<p class="income_expenditure"></p></a>
+                <p class="product">{{ transact.date }} - {{ transact.product }}:</p>
+                <div class="total_amount">Общая сумма: {{ transact.price * transact.quantity }} руб.</div>
+                <p><input type="submit" value="Удалить доход(id={{ transact.id }})"></p>
+            </li>
+        {% else %}
+            <li><a href="/transact/{{ transact.income_expenditure }}">{{ transact.income_expenditure.capitalize() }}<p class="income_expenditure"></p></a>
+                <p class="product">{{ transact.date }} - {{ transact.product }}:</p>
+                <div class="price_quantity">Цена за 1 ед.: {{ transact.price }} руб., к-во ед.: {{ transact.quantity }} шт;</div>
+                <div class="total_amount">Общая сумма: {{ transact.price * transact.quantity }} руб.</div>
+                <p><input type="submit" value="Удалить транзакцию {{ transact.income_expenditure }}(id={{ transact.id }})"></p>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}
